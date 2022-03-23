@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // styles
-import '../styles/Header.scss'
+import '../styles/Header.scss';
 
 const Header = () => {
     return (

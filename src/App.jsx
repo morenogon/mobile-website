@@ -1,4 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+// helpers
+import { fetchProductsList } from './helpers/fetchProductsList';
+
+// context
+import { ProductsListContext } from './hooks/context';
 
 // styles
 import './App.scss';
@@ -8,14 +15,26 @@ import Header from './components/Header';
 import ProductsList from './components/ProductsList';
 import NotFoundPage from './components/NotFoundPage';
 
-function App() {
+const App = () => {
+
+  const [productsList, setProductsList] = useState([]);
+
+  useEffect(() => {
+    fetchProductsList().then(res => {
+      setProductsList(res.data);
+      console.log(res.data)
+    });
+  }, []);
+
   return (
     <div className="app">
-      <Header />
-      <Routes>
-        <Route path="/" element={<ProductsList />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <ProductsListContext.Provider value={[productsList]}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<ProductsList />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </ProductsListContext.Provider>
     </div>
   );
 }
