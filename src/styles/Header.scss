@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  height: 44px;
+
+  padding: 24px 32px;
+
+  font-size: 12px;
+  color: rgb(245, 245, 247);
+  background-color: #333333;
+
+  &__leftContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    &-logo {
+      width: 20px;
+    }
+
+    &-breadcrumb {
+      margin-left: 24px;
+    }
+  }
+
+  &__basketContainer {
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      margin-right: 8px;
+
+      font-size: 20px !important;
+    }
+  }
+}
