@@ -30,6 +30,7 @@ const App = () => {
   const callProductsListApi = () => {
     fetchProductsList().then(res => {
       setProductsList(res.data);
+      console.log(res.data)
     });
   }
 

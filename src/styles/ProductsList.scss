@@ -1,7 +1,42 @@
 @import "./mixins";
+@import "./variables";
 
 .productsList {
   padding: 32px;
+
+  &__searchContainer {
+    margin-bottom: 32px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    > form {
+      display: flex;
+    }
+
+    &-search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+
+      border: 1px solid $primary-black;
+      border-radius: 30px;
+      padding: 4px 8px;
+    }
+
+    &-icon {
+      color: $primary-black !important;
+    }
+
+    &-input {
+      width: 200px;
+
+      border: none;
+
+      outline: none;
+    }
+  }
 
   &__body {
     display: flex;
