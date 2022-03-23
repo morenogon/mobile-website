@@ -20,11 +20,18 @@ const App = () => {
   const [productsList, setProductsList] = useState([]);
 
   useEffect(() => {
+    setTimeout(() => {
+      callProductsListApi();
+    }, 3600 * 1000);
+
+    callProductsListApi();
+  }, []);
+
+  const callProductsListApi = () => {
     fetchProductsList().then(res => {
       setProductsList(res.data);
-      console.log(res.data)
     });
-  }, []);
+  }
 
   return (
     <div className="app">
