@@ -1,0 +1,12 @@
+@import "./mixins";
+
+.productsList {
+  padding: 32px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
