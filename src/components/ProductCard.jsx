@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 // styles
 import '../styles/ProductCard.scss';
 
-const ProductCard = ({ brand, imgUrl, model, price }) => {
+const ProductCard = ({ id, brand, imgUrl, model, price }) => {
     return (
         <div className='productCard'>
-            <Link to='/'>
+            <Link to={`/${id}`}>
                 <img src={imgUrl} alt={`${model} image`} />
                 <div className="productCard__footer">
                     <p>{model}</p>

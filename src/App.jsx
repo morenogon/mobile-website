@@ -14,6 +14,7 @@ import './App.scss';
 import Header from './components/Header';
 import ProductsList from './components/ProductsList';
 import NotFoundPage from './components/NotFoundPage';
+import ProductDetail from './components/ProductDetail';
 
 const App = () => {
 
@@ -30,7 +31,6 @@ const App = () => {
   const callProductsListApi = () => {
     fetchProductsList().then(res => {
       setProductsList(res.data);
-      console.log(res.data)
     });
   }
 
@@ -40,6 +40,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<ProductsList />} />
+          <Route path="/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ProductsListContext.Provider>

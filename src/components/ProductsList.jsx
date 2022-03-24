@@ -33,7 +33,7 @@ const ProductsList = () => {
                         <SearchIcon className='productsList__searchContainer-icon' />
                         <input
                             type='text'
-                            placeholder='Search for brand or model'
+                            placeholder='Search by brand or model'
                             value={filter}
                             onChange={(e) => setFilter(e.target.value)}
                             className="productsList__searchContainer-input"
@@ -45,12 +45,12 @@ const ProductsList = () => {
                 {filter && filteredProducts.length ? (
                     <>{filteredProducts.map(({ id, brand, imgUrl, model, price }) => {
                         return (
-                            <ProductCard key={id} brand={brand} imgUrl={imgUrl} model={model} price={price} />
+                            <ProductCard key={id} id={id} brand={brand} imgUrl={imgUrl} model={model} price={price} />
                         )
                     })}</>
                 ) : (<>{productsList.map(({ id, brand, imgUrl, model, price }) => {
                     return (
-                        <ProductCard key={id} brand={brand} imgUrl={imgUrl} model={model} price={price} />
+                        <ProductCard key={id} id={id} brand={brand} imgUrl={imgUrl} model={model} price={price} />
                     )
                 })}</>)}
             </div>
