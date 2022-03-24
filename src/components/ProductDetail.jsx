@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
-import { fetchProductDetail } from '../helpers/fetchProductDetail';
+import { fetchProductDetail, postProductDetail } from '../helpers/fetchProductDetail';
+import Dropdown from './Dropdown';
 
 const ProductDetail = () => {
     const [productDetail, setProductDetail] = useState({});
+    const [selectedColor, setSelectedColor] = useState();
+    const [selectedStorage, setSelectedStorage] = useState();
 
     const { id } = useParams();
-
     const { imgUrl, brand, model, price, cpu, ram, chipset, displayResolution, batery, primaryCamera, secondaryCmera, dimensions, weight, options } = productDetail;
 
     useEffect(() => {
         fetchProductDetail(id).then(res => {
-            console.log(res.data)
             setProductDetail(res.data);
         });
-    }, [])
+    }, []);
 
+    const handleAddToCard = () => {
+        postProductDetail({ id: id, colorCode: selectedColor, storageCode: selectedStorage }).then(res => {
+            debugger
+            console.log(res.data)
+        });
+    }
 
     return (
         <div className='productDetail'>
@@ -50,8 +57,9 @@ const ProductDetail = () => {
                     </div>
                     <div className="productDetail__rightContainer-bottom">
                         <h4>Actions</h4>
-                        {options.colors && options.colors.map(({ code, name }) => <p key={`${id}${code}`}>{name}</p>)}
-                        {options.storages && options.storages.map(({ code, name }) => <p key={`${id}${code}`}>{name}</p>)}
+                        {options && <Dropdown key={`${id}${options.colors[0].code}`} title='Colors' options={options.colors} onSelect={setSelectedColor} />}
+                        {options && <Dropdown key={`${id}${options.storages[0].code}`} title='Storages' options={options.storages} onSelect={setSelectedStorage} />}
+                        <button onClick={handleAddToCard}>Añadir</button>
                     </div>
                 </div>
             </div>
