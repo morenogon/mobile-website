@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { fetchProductDetail, postProductDetail } from '../helpers/fetchProductDetail';
+import { setItemLocalStorage } from '../helpers/localStorage';
+import { ProductsInCartContext } from '../hooks/context';
 import Dropdown from './Dropdown';
 
 const ProductDetail = () => {
     const [productDetail, setProductDetail] = useState({});
     const [selectedColor, setSelectedColor] = useState();
     const [selectedStorage, setSelectedStorage] = useState();
+
+    const [productsInCart, setProductsInCart] = useContext(ProductsInCartContext);
 
     const { id } = useParams();
     const { imgUrl, brand, model, price, cpu, ram, chipset, displayResolution, batery, primaryCamera, secondaryCmera, dimensions, weight, options } = productDetail;
@@ -19,8 +23,9 @@ const ProductDetail = () => {
 
     const handleAddToCard = () => {
         postProductDetail({ id: id, colorCode: selectedColor, storageCode: selectedStorage }).then(res => {
-            debugger
-            console.log(res.data)
+            const countProduct = productsInCart + res.data.count;
+            setItemLocalStorage('count', countProduct);
+            setProductsInCart(countProduct);
         });
     }
 
@@ -42,16 +47,20 @@ const ProductDetail = () => {
                         <p>{chipset}</p>
                         <p>{displayResolution}</p>
                         <p>{batery}</p>
-                        {primaryCamera && primaryCamera.map((cameraName) => {
-                            return (
-                                <p key={`${id}${cameraName}`}>{cameraName}</p>
-                            )
-                        })}
-                        {secondaryCmera && secondaryCmera.map((cameraName) => {
-                            return (
-                                <p key={`${id}${cameraName}`}>{cameraName}</p>
-                            )
-                        })}
+                        {
+                            Array.isArray(primaryCamera) ? (primaryCamera.map((cameraName) => {
+                                return (
+                                    <p key={`${id}${cameraName}`}>{cameraName}</p>
+                                )
+                            })) : (<p>{primaryCamera}</p>)
+                        }
+                        {
+                            Array.isArray(secondaryCmera) ? (secondaryCmera.map((cameraName) => {
+                                return (
+                                    <p key={`${id}${cameraName}`}>{cameraName}</p>
+                                )
+                            })) : (<p>{secondaryCmera}</p>)
+                        }
                         <p>{dimensions}</p>
                         <p>{weight}</p>
                     </div>

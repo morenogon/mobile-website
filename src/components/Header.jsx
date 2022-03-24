@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 // icons
@@ -6,8 +6,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // styles
 import '../styles/Header.scss';
+import { ProductsInCartContext } from '../hooks/context';
 
 const Header = () => {
+    const [productsInCart] = useContext(ProductsInCartContext);
+
     return (
         <div className='header'>
             <div className="header__leftContainer">
@@ -18,7 +21,7 @@ const Header = () => {
             </div>
             <div className="header__rightContainer">
                 <div className="header__basketContainer">
-                    <ShoppingCartIcon className="header__basketContainer-icon" /><span>0</span>
+                    <ShoppingCartIcon className="header__basketContainer-icon" /><span>{productsInCart}</span>
                 </div>
             </div>
         </div>

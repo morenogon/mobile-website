@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { fetchProductsList } from './helpers/fetchProductsList';
 
 // context
-import { ProductsListContext } from './hooks/context';
+import { ProductsInCartContext, ProductsListContext } from './hooks/context';
 
 // styles
 import './App.scss';
@@ -19,14 +19,21 @@ import ProductDetail from './components/ProductDetail';
 const App = () => {
 
   const [productsList, setProductsList] = useState([]);
+  const [productsInCart, setProductsInCart] = useState(0);
+  const [initTimer, setInitTimer] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      callProductsListApi();
-    }, 3600 * 1000);
-
     callProductsListApi();
   }, []);
+
+  // call api every hour
+  useEffect(() => {
+    setTimeout(() => {
+      setInitTimer(!initTimer);
+
+      callProductsListApi();
+    }, 3600 * 1000);
+  }, [initTimer]);
 
   const callProductsListApi = () => {
     fetchProductsList().then(res => {
@@ -37,12 +44,14 @@ const App = () => {
   return (
     <div className="app">
       <ProductsListContext.Provider value={[productsList]}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<ProductsList />} />
-          <Route path="/:id" element={<ProductDetail />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <ProductsInCartContext.Provider value={[productsInCart, setProductsInCart]}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<ProductsList />} />
+            <Route path="/:id" element={<ProductDetail />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ProductsInCartContext.Provider>
       </ProductsListContext.Provider>
     </div>
   );

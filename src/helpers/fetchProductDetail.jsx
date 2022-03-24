@@ -1,9 +1,10 @@
 import { productsListApi } from "../api/productsListApi";
+import { setItemLocalStorage } from "./localStorage";
 
 export const fetchProductDetail = async (id) => {
     return await productsListApi.get(`product/${id}`)
         .then(res => {
-            setItemLocalStorage(res.data);
+            setItemLocalStorage('productDetail', res.data);
             return res;
         })
         .catch(error => {
@@ -12,16 +13,11 @@ export const fetchProductDetail = async (id) => {
 };
 
 export const postProductDetail = async (data) => {
-    debugger
     return await productsListApi.post('cart', data)
         .then((res) => {
-            debugger
-            console.log(res);
+            setItemLocalStorage('count', res.data.count);
+            return res;
         }, (error) => {
             console.error('There was an error!', error);
         });
-};
-
-export const setItemLocalStorage = (data) => {
-    localStorage.setItem('productDetail', JSON.stringify(data));
 };
