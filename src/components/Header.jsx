@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // styles
 import '../styles/Header.scss';
 import { ProductsInCartContext } from '../hooks/context';
+import Breadcrumb from './Breadcrumb';
 
 const Header = () => {
     const [productsInCart] = useContext(ProductsInCartContext);
@@ -17,7 +18,9 @@ const Header = () => {
                 <Link to='/'>
                     <img className="header__leftContainer-logo" src="/assets/images/logo.png" alt="logo" />
                 </Link>
-                <div className='header__leftContainer-breadcrumb'>TODO: Breadcrumb</div>
+                <div className='header__leftContainer-breadcrumb'>
+                    <Breadcrumb />
+                </div>
             </div>
             <div className="header__rightContainer">
                 <div className="header__basketContainer">
