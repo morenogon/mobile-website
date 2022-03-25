@@ -1,4 +1,34 @@
+@import "./mixins";
+
 .productCard {
-  //   width: 240px;
   height: 280px;
+
+  > img {
+    height: 200px;
+  }
+
+  @include desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    &-left {
+      &-model {
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+    }
+
+    &-right {
+      margin-left: 8px;
+    }
+  }
 }

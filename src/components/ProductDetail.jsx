@@ -4,6 +4,10 @@ import { fetchProductDetail, postProductDetail } from '../helpers/fetchProductDe
 import { setItemLocalStorage } from '../helpers/localStorage';
 import { ProductsInCartContext } from '../hooks/context';
 import Dropdown from './Dropdown';
+import '../styles/ProductDetail.scss';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
     const [productDetail, setProductDetail] = useState({});
@@ -27,51 +31,66 @@ const ProductDetail = () => {
             setItemLocalStorage('count', countProduct);
             setProductsInCart(countProduct);
         });
+        toast.success('🛒 Added to cart!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     return (
         <div className='productDetail'>
-            <Link to='/'>Home</Link>
+            <Link to='/' className='productDetail__returnLink'><ArrowBackIosNewIcon className='productDetail__returnLink-icon' /><span>Home</span></Link>
             <div className="productDetail__body">
                 <div className="productDetail__leftContainer">
                     <img src={imgUrl} />
                 </div>
                 <div className="productDetail__rightContainer">
                     <div className="productDetail__rightContainer-top">
-                        <h4>Description</h4>
-                        <p>{brand}</p>
-                        <p>{model}</p>
-                        <p>{price}</p>
-                        <p>{cpu}</p>
-                        <p>{ram}</p>
-                        <p>{chipset}</p>
-                        <p>{displayResolution}</p>
-                        <p>{batery}</p>
+                        <div className="productDetail__rightContainer-top-description">
+                            <h4 className='productDetail__model'>{model}</h4>
+                            <h4 className='productDetail__brand'>{brand}</h4>
+                            <div className='productDetail__priceContainer'>
+                                <p>{price && `${price} EUR`}</p>
+                            </div>
+                        </div>
+                        <div className="productDetail__rightContainer-top-info">
+                            <p>{cpu && `CPU: ${cpu}`}</p>
+                            <p>{ram && `RAM: ${ram}`}</p>
+                            <p>{chipset && `Chip: ${chipset}`}</p>
+                            <p>{displayResolution && `Resolution: ${displayResolution}`}</p>
+                            <p>{batery && `Battery: ${batery}`}</p>
+                            <p>{dimensions && `Dimensions: ${dimensions}`}</p>
+                            <p>{weight && `Weight: ${weight}`}</p>
+                        </div>
                         {
-                            Array.isArray(primaryCamera) ? (primaryCamera.map((cameraName) => {
+                            Array.isArray(primaryCamera) ? (primaryCamera.map((cameraName, index) => {
                                 return (
-                                    <p key={`${id}${cameraName}`}>{cameraName}</p>
+                                    <p key={`${id}${cameraName}`} className="productDetail__camera">{cameraName && `Camera ${index}: ${cameraName}`}</p>
                                 )
                             })) : (<p>{primaryCamera}</p>)
                         }
                         {
-                            Array.isArray(secondaryCmera) ? (secondaryCmera.map((cameraName) => {
+                            Array.isArray(secondaryCmera) ? (secondaryCmera.map((cameraName, index) => {
                                 return (
-                                    <p key={`${id}${cameraName}`}>{cameraName}</p>
+                                    <p key={`${id}${cameraName}`} className="productDetail__camera">{cameraName && `Camera ${index}: ${cameraName}`}</p>
                                 )
                             })) : (<p>{secondaryCmera}</p>)
                         }
-                        <p>{dimensions}</p>
-                        <p>{weight}</p>
+
                     </div>
                     <div className="productDetail__rightContainer-bottom">
-                        <h4>Actions</h4>
                         {options && <Dropdown key={`${id}${options.colors[0].code}`} title='Colors' options={options.colors} onSelect={setSelectedColor} />}
                         {options && <Dropdown key={`${id}${options.storages[0].code}`} title='Storages' options={options.storages} onSelect={setSelectedStorage} />}
-                        <button onClick={handleAddToCard}>Añadir</button>
+                        <button onClick={handleAddToCard}>Add to cart</button>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

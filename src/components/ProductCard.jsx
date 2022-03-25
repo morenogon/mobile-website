@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 // styles
 import '../styles/ProductCard.scss';
@@ -11,9 +11,15 @@ const ProductCard = ({ id, brand, imgUrl, model, price }) => {
             <Link to={`/${id}`}>
                 <img src={imgUrl} alt={`${model} image`} />
                 <div className="productCard__footer">
-                    <p>{model}</p>
-                    <p>{brand}</p>
-                    <p>{`${price} EUR`}</p>
+                    <div className="productCard__footer-left">
+                        <p className='productCard__footer-left-model'>{model}</p>
+                        <p>{brand}</p></div>
+                    <div className="productCard__footer-right">
+
+                        <p>{`${price} EUR`}</p>
+
+                    </div>
+
                 </div>
             </Link>
         </div>

@@ -1,0 +1,19 @@
+@import "./variables";
+
+.breadcrumb {
+  a {
+    color: $primary-white;
+    font-size: 14px;
+  }
+
+  a:first-child:after {
+    content: "/";
+  }
+
+  &__title {
+    &--active {
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}
