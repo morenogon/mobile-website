@@ -72,14 +72,14 @@ const ProductDetail = () => {
                                 return (
                                     <p key={`${id}${cameraName}`} className="productDetail__camera">{cameraName && `Camera ${index}: ${cameraName}`}</p>
                                 )
-                            })) : (<p>{primaryCamera}</p>)
+                            })) : (<p className="productDetail__camera">{primaryCamera && `Camera: ${primaryCamera}`}</p>)
                         }
                         {
                             Array.isArray(secondaryCmera) ? (secondaryCmera.map((cameraName, index) => {
                                 return (
                                     <p key={`${id}${cameraName}`} className="productDetail__camera">{cameraName && `Camera ${index}: ${cameraName}`}</p>
                                 )
-                            })) : (<p>{secondaryCmera}</p>)
+                            })) : (<p className="productDetail__camera">{secondaryCmera && `Camera: ${secondaryCmera}`}</p>)
                         }
 
                     </div>
