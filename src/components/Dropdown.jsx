@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import PropTypes from 'prop-types';
 
 const Dropdown = ({ title, options, onSelect }) => {
     const [value, setValue] = useState(options[0].code);
@@ -38,3 +39,12 @@ const Dropdown = ({ title, options, onSelect }) => {
 }
 
 export default Dropdown;
+
+Dropdown.propTypes = {
+    title: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.shape({
+        code: PropTypes.number,
+        name: PropTypes.string,
+        onSelect: PropTypes.func
+    }))
+}
