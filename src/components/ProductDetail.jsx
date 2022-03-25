@@ -23,7 +23,7 @@ const ProductDetail = () => {
         fetchProductDetail(id).then(res => {
             setProductDetail(res.data);
         });
-    }, []);
+    }, [id]);
 
     const handleAddToCard = () => {
         postProductDetail({ id: id, colorCode: selectedColor, storageCode: selectedStorage }).then(res => {
@@ -47,7 +47,7 @@ const ProductDetail = () => {
             <Link to='/' className='productDetail__returnLink'><ArrowBackIosNewIcon className='productDetail__returnLink-icon' /><span>Home</span></Link>
             <div className="productDetail__body">
                 <div className="productDetail__leftContainer">
-                    <img src={imgUrl} />
+                    <img src={imgUrl} alt={model} />
                 </div>
                 <div className="productDetail__rightContainer">
                     <div className="productDetail__rightContainer-top">

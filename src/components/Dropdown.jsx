@@ -10,13 +10,17 @@ const Dropdown = ({ title, options, onSelect }) => {
     const [value, setValue] = useState(options[0].code);
 
     useEffect(() => {
-        onSelect(value);
+        emitSelectedValue();
     }, []);
 
     const handleChange = (e) => {
         setValue(e.target.value);
-        onSelect(value);
+        emitSelectedValue();
     };
+
+    const emitSelectedValue = () => {
+        onSelect(value);
+    }
 
     return (
         <div className='dropdown'>

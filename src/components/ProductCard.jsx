@@ -9,7 +9,7 @@ const ProductCard = ({ id, brand, imgUrl, model, price }) => {
     return (
         <div className='productCard'>
             <Link to={`/${id}`}>
-                <img src={imgUrl} alt={`${model} image`} />
+                <img src={imgUrl} alt={model} />
                 <div className="productCard__footer">
                     <div className="productCard__footer-left">
                         <p className='productCard__footer-left-model'>{model}</p>
